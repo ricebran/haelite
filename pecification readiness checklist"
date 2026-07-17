@@ -1,0 +1,43 @@
+[1mdiff --git a/specs/001-paper-trading-platform/checklists/requirements.md b/specs/001-paper-trading-platform/checklists/requirements.md[m
+[1mindex 849ea1f..cbab79d 100644[m
+[1m--- a/specs/001-paper-trading-platform/checklists/requirements.md[m
+[1m+++ b/specs/001-paper-trading-platform/checklists/requirements.md[m
+[36m@@ -30,22 +30,22 @@[m
+ - [x] No implementation details leak into specification[m
+ - [x] Candidate readiness criteria defined and recorded (Quant Lead approval, Risk Owner approval, explicit Checker approval, approved DataSnapshot)[m
+ - [x] Candidate readiness updated to require explicit Checker approval prior to first activation[m
+[31m-- [ ] Paper-session persistence and counting tasks defined and validated (T040)[m
+[31m-- [ ] Reconciliation and reconciliation-status reporting tasks defined (T041)[m
+[31m-- [ ] Live-proposal gate task present to enforce 60 reconciled-session rule before proposals (T042)[m
+[31m-- [ ] Runtime pre-trade risk checks task present and mapped (T043)[m
+[31m-- [ ] Performance benchmark harness and CI job defined (T044)[m
+[31m-- [ ] Metrics endpoint and alerting tasks defined (T045)[m
+[31m-- [ ] Secrets-provider integration and secret-leak tests defined (T038)[m
+[31m-- [ ] Secrets verification and integration tests defined (T046) — depends on T038[m
+[31m-- [ ] Frontend scaffold task present before frontend implementation tasks (T047)[m
+[31m-- [ ] Operational readiness evidence tasks for licensed data and broker credentials defined (T048)[m
+[31m-- [ ] Broker-adapter (paper-only), order-generation, and order/fill persistence tasks added (T049-T052)[m
+[31m-- [ ] Reconciliation across orders/fills/positions task added (T053)[m
+[31m-- [ ] Enforcement that live-capital execution is unavailable task added (T054)[m
+[31m-- [ ] Automatic iteration-stop enforcement task added (T055)[m
+[31m-- [ ] Operational-status API and contract task added (T057)[m
+[31m-- [ ] LiveProposal persistence task added (T058)[m
+[32m+[m[32m- [x] Paper-session persistence and counting tasks defined and validated (T040)[m
+[32m+[m[32m- [x] Reconciliation and reconciliation-status reporting tasks defined (T041)[m
+[32m+[m[32m- [x] Live-proposal gate task present to enforce 60 reconciled-session rule before proposals (T042)[m
+[32m+[m[32m- [x] Runtime pre-trade risk checks task present and mapped (T043)[m
+[32m+[m[32m- [x] Performance benchmark harness and CI job defined (T044)[m
+[32m+[m[32m- [x] Metrics endpoint and alerting tasks defined (T045)[m
+[32m+[m[32m- [x] Secrets-provider integration and secret-leak tests defined (T038)[m
+[32m+[m[32m- [x] Secrets verification and integration tests defined (T046) — depends on T038[m
+[32m+[m[32m- [x] Frontend scaffold task present before frontend implementation tasks (T047)[m
+[32m+[m[32m- [x] Operational readiness evidence tasks for licensed data and broker credentials defined (T048)[m
+[32m+[m[32m- [x] Broker-adapter (paper-only), order-generation, and order/fill persistence tasks added (T049-T052)[m
+[32m+[m[32m- [x] Reconciliation across orders/fills/positions task added (T053)[m
+[32m+[m[32m- [x] Enforcement that live-capital execution is unavailable task added (T054)[m
+[32m+[m[32m- [x] Automatic iteration-stop enforcement task added (T055)[m
+[32m+[m[32m- [x] Operational-status API and contract task added (T057)[m
+[32m+[m[32m- [x] LiveProposal persistence task added (T058)[m
+ [m
+ ## Notes[m
+ [m
