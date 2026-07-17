@@ -78,8 +78,8 @@ description: "Task list for Governed Research and Paper-Trading Platform"
  - [ ] T038 [P] Security hardening & secrets workstream: secret scanner config, runtime secrets-provider integration (connector), CI secret-leak tests, runtime/integration tests ensuring no credentials in repository or evidence bundles, and operating documentation — files: `docs/security.md`, `src/secrets/*`, `tests/security/test_no_secrets.py`, `.github/workflows/secret-scan.yml`.
 - [ ] T039 [P] Accessibility and UX polish for dashboard pages created — files: `frontend/src/*`.
  - [ ] T040 [P] Implement paper-session persistence and session counter service (`src/services/session.py`, `src/api/sessions.py`) to record `PaperSession` and provide session counts per candidate.
- - [ ] T041 [P] Implement reconciliation scheduler and reporting; add reconciliation status field and API to surface reconciliation results (`src/services/reconciliation.py`, `src/api/reconciliation.py`).
- - [ ] T042 [US2] Implement live-capital proposal eligibility gate service and API (`src/services/gates.py`, `src/api/proposals.py`) that enforces required session counts before proposals can be created/submitted.
+ - [ ] T041 [P] Implement PaperSession reconciliation scheduler and status persistence: job orchestration, reconciliation-status updates, and summary status aggregation (do NOT implement detailed order/fill comparison logic or the detailed reconciliation report API). Files: `src/services/reconciliation_scheduler.py`, `src/services/session.py`.
+ - [ ] T042 [US2] Implement live-capital proposal eligibility gate service and API (`src/services/gates.py`, `src/api/proposals.py`) that enforces required session counts before proposals can be created/submitted. Dependencies: T040, T041, T058.
  - [ ] T043 [P] Implement runtime pre-trade risk checks invoked prior to order generation (service + integration tests) — files: `src/services/risk_checks.py`, `src/tests/test_risk_checks.py`.
  - [ ] T044 [P] Add performance benchmark harness and CI benchmark job to validate reference backtest durations and risk-check latencies — files: `benchmarks/`, `.github/workflows/benchmarks.yml`.
  - [ ] T045 [P] Implement metrics endpoint, monitoring dashboard slices, stale-data alerts, and incident visibility (update `src/api/metrics.py`, `src/services/alerts.py`).
@@ -87,10 +87,10 @@ description: "Task list for Governed Research and Paper-Trading Platform"
  - [ ] T047 [P] Frontend scaffold: create `frontend/` Vite React starter and baseline pages to satisfy frontend task references (`frontend/package.json`, `frontend/src/`).
  - [ ] T048 [P] Add operational readiness evidence tasks: create `scripts/verify-licensed-data.sh` and `scripts/verify-broker-credentials.sh` and API hooks to record evidence artifacts for licensed data and broker credential provisioning.
  - [ ] T049 [P] Implement paper-only broker adapter (Alpaca paper-mode) and adapter contract tests — files: `src/adapters/broker/alpaca_paper.py`, `tests/contract/test_broker_adapter.py`.
- - [ ] T050 [P] Implement order-generation service that turns strategy signals into persisted `PaperOrder` records (no live-capital path) — files: `src/services/order_generation.py`, `src/api/orders.py`. Dependencies: T051 (models/migrations), T049 (adapter).
- - [ ] T051 [P] Implement `PaperOrder` and `PaperFill` persistence and ledger export; add DB models and migrations — files: `src/models/orders.py`, `migrations/`. Dependencies: T006 (migrations base).
+ - [ ] T050 [P] Implement `PaperOrder` and `PaperFill` persistence, DB models, migrations, append-only fill handling, and ledger export — files: `src/models/orders.py`, `migrations/`. Dependency: T006 (migrations base).
+ - [ ] T051 [P] Implement order-generation service that turns strategy signals into persisted `PaperOrder` records and exposes `POST /orders` (no live-capital path) — files: `src/services/order_generation.py`, `src/api/orders.py`. Dependencies: T049, T050.
  - [ ] T052 [P] Add adapter and order lifecycle contract tests: generation → submit → persists → fill ingestion — files: `tests/contract/test_orders_lifecycle.py`. Dependencies: T049, T050, T051.
- - [ ] T053 [P] Implement reconciliation service comparing generated orders, submitted paper orders, fills, positions, and evidence artifacts; add reporting API — files: `src/services/reconciliation.py`, `src/api/reconciliation.py`. Dependencies: T051, T052.
+ - [ ] T053 [P] Implement reconciliation engine comparing generated orders, submitted paper orders, fills, positions, and evidence artifacts; add detailed reconciliation reporting API — files: `src/services/reconciliation_engine.py`, `src/api/reconciliation_report.py`. Dependencies: T041, T050, T052.
  - [ ] T054 [P] Enforce no-live-capital policy using a repository-native Python/pytest policy guard executed in CI. Requirements:
 	 - explicit paper-only execution mode
 	 - startup failure when a live-capital mode or live broker endpoint is configured
@@ -100,11 +100,11 @@ description: "Task list for Governed Research and Paper-Trading Platform"
 	 - CI policy test checking app configuration, adapter registration, and prohibited live execution paths
 	 - fail-closed behavior when broker mode cannot be determined
 	 - Do NOT introduce external policy platforms for initial implementation; use pytest-based guards and runtime checks.
-	 Dependencies: T049, T051
+	 Dependencies: T049, T050
  - [ ] T055 [P] Implement automatic iteration-stop enforcement (FR-005) and tests for trial budget exhaustion, missing/revoked approvals, data quality gate failures, risk limit breaches, unresolved reconciliation, and critical incidents — files: `src/services/iteration_guard.py`, `tests/integration/test_iteration_stop.py`. Dependencies: T012, T015, T041.
- - [ ] T056 [P] Clarify SC-004 enforcement tests: add tests proving only `PaperSession` with `reconciliation_status = reconciled` count toward `LiveProposal` eligibility — files: `tests/integration/test_proposal_eligibility.py`. Dependencies: T040, T041.
+ - [ ] T056 [P] Clarify SC-004 enforcement tests: add tests proving only `PaperSession` with `reconciliation_status = reconciled` count toward `LiveProposal` eligibility — files: `tests/integration/test_proposal_eligibility.py`. Dependencies: T040, T041, T042, T058.
  - [ ] T057 [P] Implement operational-status API `GET /status/operational` and contract tests summarizing health, incidents, data freshness, reconciliation status, and evidence availability — files: `src/api/status.py`, `tests/contract/test_operational_status.py`. Dependencies: T045, T041, T020.
- - [ ] T058 [P] Implement `LiveProposal` persistence and migrations; add model, migration, and persistence tests — files: `src/models/live_proposals.py`, `migrations/`, `tests/unit/test_live_proposals.py`. Dependencies: T006, T042.
+ - [ ] T058 [P] Implement `LiveProposal` persistence and migrations; add model, migration, and persistence tests — files: `src/models/live_proposals.py`, `migrations/`, `tests/unit/test_live_proposals.py`. Dependencies: T006.
 
 ## Dependencies & Execution Order
 
@@ -121,10 +121,17 @@ description: "Task list for Governed Research and Paper-Trading Platform"
 
 
 ## Summary
-- Total tasks: 57
  - Total tasks: 58
-- P1 story tasks (US1 + US2): 18 implementation tasks + foundational tasks
-- P2 story tasks (US3): 6 implementation tasks
+ - US1 tasks: 5 (T022-T026)
+ - US2 tasks: 6 (T027-T031 + T042)
+ - P1 story tasks (US1 + US2): 11
+ - US3 / P2 story tasks: 3 (T032-T034)
+ - Phase 1 tasks: 5
+ - Phase 2 tasks: 16
+ - Phase 3 tasks: 5
+ - Phase 4 tasks: 5
+ - Phase 5 tasks: 3
+ - Phase 6 tasks: 24
 
 
 **Next step**: run `/speckit-implement` or convert tasks to issues with `/speckit-taskstoissues`.

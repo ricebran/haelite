@@ -46,7 +46,8 @@
  - [x] Runtime pre-trade risk checks task present and mapped (T043)
  - [x] Performance benchmark harness and CI job defined (T044)
  - [x] Metrics endpoint and alerting tasks defined (T045)
- - [x] Secrets-provider integration and secret-leak tests consolidated and defined (T038)
+ - [x] Secrets-provider integration and secret-leak tests defined (T038)
+ - [x] Secrets verification and integration tests defined (T046) — depends on T038
  - [x] Frontend scaffold task present before frontend implementation tasks (T047)
  - [x] Operational readiness evidence tasks for licensed data and broker credentials defined (T048)
  - [x] Broker-adapter (paper-only), order-generation, and order/fill persistence tasks added (T049-T052)
@@ -54,6 +55,7 @@
  - [x] Enforcement that live-capital execution is unavailable task added (T054)
  - [x] Automatic iteration-stop enforcement task added (T055)
  - [x] Operational-status API and contract task added (T057)
+ - [x] LiveProposal persistence task added (T058)
 
 ## Notes
 
