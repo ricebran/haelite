@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "haelite"
+version = "0.1.0"
+description = "Governed research and paper-trading platform"
+requires-python = ">=3.12"
+dependencies = [
+  "fastapi>=0.115,<0.116",
+  "pydantic>=2.9,<2.10",
+  "uvicorn[standard]>=0.30,<0.31",
+  "sqlalchemy>=2.0,<2.1",
+  "alembic>=1.13,<1.14",
+  "python-dotenv>=1.0,<2.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
+ignore = []
+
+[tool.mypy]
+python_version = "3.12"
+strict = false
+warn_unused_configs = true
+files = ["src", "tests"]

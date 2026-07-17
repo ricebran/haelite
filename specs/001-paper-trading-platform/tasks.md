@@ -7,11 +7,11 @@ description: "Task list for Governed Research and Paper-Trading Platform"
 **Input**: `spec.md`, `plan.md`, `data-model.md`, `contracts/`, `quickstart.md`
 
 ## Phase 1: Setup (Project initialization)
-- [ ] T001 Initialize Python project, virtual env, and CI config (GitHub Actions) — create `pyproject.toml`, `requirements.txt`, and CI workflow files. (paths: `pyproject.toml`, `.github/workflows/ci.yml`)
-- [ ] T002 [P] Add linting, formatting, and type-check configs (`ruff`, `mypy`, `pre-commit`) — files: `pyproject.toml`, `.pre-commit-config.yaml`.
-- [ ] T003 [P] Create Docker Compose local stack (Postgres, MinIO, app) — file: `docker-compose.yml`.
-- [ ] T004 [P] Add repository `README.md` quickstart instructions referencing `specs/001-paper-trading-platform/quickstart.md`.
-- [ ] T005 [P] Seed local single-user auth for development (seed script and sample env) — files: `scripts/seed-dev-identity.sh`, `.env.example`.
+- [x] T001 Initialize Python project, virtual env, and CI config (GitHub Actions) — create `pyproject.toml`, `requirements.txt`, and CI workflow files. (paths: `pyproject.toml`, `.github/workflows/ci.yml`)
+- [x] T002 [P] Add linting, formatting, and type-check configs (`ruff`, `mypy`, `pre-commit`) — files: `pyproject.toml`, `.pre-commit-config.yaml`.
+- [x] T003 [P] Create Docker Compose local stack (Postgres, MinIO, app) — file: `docker-compose.yml`.
+- [x] T004 [P] Add repository `README.md` quickstart instructions referencing `specs/001-paper-trading-platform/quickstart.md`.
+- [x] T005 [P] Seed local single-user auth for development (seed script and sample env) — files: `scripts/seed-dev-identity.sh`, `.env.example`.
 
 ## Phase 2: Foundational (Blocking prerequisites)
 - [ ] T006 Initialize database migrations and base schema (Alembic) — files: `migrations/`, `src/models/__init__.py`.
