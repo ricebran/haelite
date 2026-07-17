@@ -40,7 +40,14 @@
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+- Every task MUST map to one or more approved requirements and preserve
+  traceability to the constitution's evidence-first principles.
+- The plan MUST preserve point-in-time data handling, immutable artifacts,
+  and deterministic validation constraints.
+- The design MUST avoid live-capital, unrestricted broker access, and any
+  change to risk or compliance boundaries without explicit approval.
+- The implementation MUST include tests, static analysis, dependency scanning,
+  and evidence for any security, data, or risk-sensitive change.
 
 ## Project Structure
 
@@ -108,6 +115,6 @@ directories captured above]
 > **Fill ONLY if Constitution Check has violations that must be justified**
 
 | Violation | Why Needed | Simpler Alternative Rejected Because |
-|-----------|------------|-------------------------------------|
+| --------- | ---------- | ----------------------------------- |
 | [e.g., 4th project] | [current need] | [why 3 projects insufficient] |
 | [e.g., Repository pattern] | [specific problem] | [why direct DB access insufficient] |

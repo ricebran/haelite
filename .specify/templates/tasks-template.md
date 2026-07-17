@@ -61,6 +61,11 @@ description: "Task list template for feature implementation"
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
+Foundational work MUST include traceability scaffolding, approval-aware state
+handling, immutable-data interfaces, authorization boundaries, and the quality
+checks required by the constitution (tests, linting, type checking, and
+dependency scanning).
+
 Examples of foundational tasks (adjust based on your project):
 
 - [ ] T004 Setup database schema and migrations framework
