@@ -8,6 +8,17 @@
 
 **Input**: User description: "$ARGUMENTS"
 
+## Scope, Safety, and Governance Constraints *(mandatory)*
+
+- The feature MUST remain within the approved product boundary for internal
+  research and paper trading only.
+- The feature MUST preserve human approval gates for material controls,
+  including risk, data, and release decisions.
+- The feature MUST not introduce live-capital routing, broker credential access,
+  or unapproved changes to risk limits.
+- The feature MUST maintain traceability to approved data snapshots,
+  configurations, and evidence artifacts.
+
 ## User Scenarios & Testing *(mandatory)*
 
 <!--
