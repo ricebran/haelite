@@ -17,14 +17,16 @@
 
 2. Candidate readiness gate
 
-- Decision: Adopt minimal approvals readiness for MVP: recorded Quant Lead and
-  Risk Owner approvals, an approved Data Snapshot reference, and Checker
-  notification/assignment before activation.
-- Rationale: Balances governance with the need for timely experimentation and
-  aligns with the constitution's human-authority rule. Stricter operational
-  gates (dry-run sessions) are deferred to a later spec revision.
-- Alternatives considered: stricter operational requirement (N-session dry-run)
-  or automated performance thresholds; deferred to future iteration.
+- Decision: Initial PaperCandidate activation requires recorded Quant Lead,
+  Risk Owner, and explicit Checker approvals, together with an approved
+  DataSnapshot reference.
+- Rationale: Explicit Checker approval provides independent verification and
+  enforces maker-checker separation before activation.
+- Rejected alternative: Checker notification or assignment without an approval
+  decision.
+- Clarification: An N-session requirement is not required before initial paper
+  activation; 60 completed, reconciled PaperSession records are required only
+  before LiveProposal creation or submission.
 
 ## Open Questions (deferred to operations)
 

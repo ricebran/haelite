@@ -28,9 +28,9 @@ curl http://localhost:8000/health
 
 5. Start a validation run referencing the approved snapshot
 
-6. After the run completes, record Quant Lead and Risk Owner approvals and notify a Checker
+6. After the run completes, record Quant Lead, Risk Owner, and explicit Checker approvals.
 
-7. Activate the paper candidate (API: `POST /api/v1/candidates/{id}/activate`)
+7. Activate the paper candidate (API: `POST /api/v1/candidates/{id}/activate`) and ensure activation fails when any required approval is absent.
 
 8. Run reconciliation and verify the evidence bundle contains the manifests, ledgers, and approvals
 
@@ -38,7 +38,8 @@ curl http://localhost:8000/health
 - [ ] Health endpoint returns OK
 - [ ] Snapshot manifest registered and approved
 - [ ] Validation run completes and artifacts created
-- [ ] Approvals recorded for Quant Lead and Risk Owner
+- [ ] Approvals recorded for Quant Lead, Risk Owner, and Checker
+- [ ] Candidate activation fails when any required approval is absent
 - [ ] Candidate activated and evidence bundle retrievable
 
 ## Notes

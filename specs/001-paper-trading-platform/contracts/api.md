@@ -17,7 +17,7 @@
 - `GET /data-snapshots/{id}` — retrieve snapshot metadata and approval status
 - `POST /data-snapshots/{id}/approve` — record approval (role restricted to Data Owner)
 
-### Validation Runs (Trials)
+### Validation Runs
 - `POST /runs` — create a validation run (body: hypothesis_id, snapshot_id, params)
 - `GET /runs/{id}` — run status and artifacts
 - `POST /runs/{id}/finalize` — mark run complete (requires snapshot approved)
@@ -28,8 +28,7 @@
 
 ### Paper Candidates
 - `POST /candidates` — create a paper candidate from a run (body: run_id, risk_config_id)
-- `POST /candidates/{id}/activate` — activate candidate for paper trading (requires Quant Lead + Risk Owner + Checker approvals recorded)
- - `POST /candidates/{id}/activate` — activate candidate for paper trading (requires Quant Lead + Risk Owner approvals and an explicit Checker approval `ApprovalRecord` with `role=checker` and `decision=approved` recorded prior to activation). Implementations MUST reject activation requests when a Checker approval is absent.
+- `POST /candidates/{id}/activate` — activate candidate for paper trading (requires Quant Lead approval, Risk Owner approval, and explicit Checker approval recorded as an `ApprovalRecord` with `role=checker` and `decision=approved`; implementers MUST reject activation when Checker approval is absent).
 - `GET /candidates/{id}` — retrieve candidate status and approvals
 
 ### Paper Sessions
@@ -70,7 +69,6 @@ Notes:
 
 ### Admin / Operational
 - `GET /health` — health endpoint (no auth)
-- `GET /metrics` — operational metrics (role-limited)
 
 ## Contract Notes
 - All write operations create audit events that are append-only and tamper-evident.

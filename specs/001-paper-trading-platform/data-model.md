@@ -13,7 +13,7 @@
 - created_by: user id
 - created_at: timestamp
 - status: enum (draft, planned, running, completed, rejected)
-- related_trials: list of Trial IDs
+- related_validation_runs: list of ValidationRun IDs
 
 ### DataSnapshot
 - id: content-addressed id (SHA-256)
@@ -27,7 +27,7 @@
 - checksum: string
 - approval: object {approver, approved_at, rationale}
 
-### ValidationRun (Trial)
+### ValidationRun
 - id: UUID
 - hypothesis_id: UUID
 - snapshot_id: DataSnapshot.id
